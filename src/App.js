@@ -21,6 +21,13 @@ function App(props) {
     }
   };
 
+  const maybeAddTodo = (e) => {
+    console.log(e.key);
+    if(e.key === 'Enter') {
+      addTodo();
+    }
+  };
+
   const removeTodo = (e) => {
     const parentListItem = e.target.parentElement;
     const todoText = parentListItem.dataset.todo;
@@ -42,8 +49,7 @@ function App(props) {
   return (
     <div id="app">
       <div id="controls">
-        <input type='text' id='add-todo' />
-        <button onClick={addTodo}>Add todo</button>
+        <input type='text' id='add-todo' onBlur={addTodo} onKeyPress={maybeAddTodo} />
       </div>
       <div id="todo-list">
         <h3>ToDo List</h3>

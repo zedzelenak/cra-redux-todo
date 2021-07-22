@@ -1,5 +1,5 @@
 const add = () => {
-	const inputValue = document.querySelector('input#add').value;
+	const inputValue = document.querySelector('input#add-todo').value;
 
 	if(!inputValue || inputValue === '') {
 		return {

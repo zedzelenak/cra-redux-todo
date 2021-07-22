@@ -7,16 +7,30 @@ function App(props) {
   const state = store.getState();
 
   const addTodo = () => {
-    store.dispatch(add());
+    const input = document.querySelector('input#add-todo');
+
+    if(state.includes(input.value)) {
+      alert('can only add one todo of a given value');
+      input.value = '';
+      return;
+    }
+    
+    if(input.value) {
+      store.dispatch(add(input.value));
+      input.value = '';
+    }
   };
+
   const removeTodo = (e) => {
     const parentListItem = e.target.parentElement;
-    store.dispatch(remove(parentListItem.dataset.todo));
+    const todoText = parentListItem.dataset.todo;
+    
+    store.dispatch(remove(todoText));
   };
+
   const removeAllTodos = () => {
     store.dispatch(removeAll());
   };
-
 
   const removeButton = <button className='remove' onClick={removeTodo}>X</button>;
   const todoListItems = state?.map((todo, i) => {
@@ -28,18 +42,17 @@ function App(props) {
   return (
     <div id="app">
       <div id="controls">
-        <h3>Controls for ToDo List</h3>
-        <div>
-          <input type='text' id='add' />
-          <button onClick={addTodo}>Add todo</button>
-        </div>
+        <input type='text' id='add-todo' />
+        <button onClick={addTodo}>Add todo</button>
       </div>
       <div id="todo-list">
         <h3>ToDo List</h3>
         <ul>
+          <li></li>
           {todoListItems}
+          <li></li>
         </ul>
-        <div>
+        <div id="remove-all">
           <button onClick={removeAllTodos}>Remove All Todos</button>
         </div>
       </div>

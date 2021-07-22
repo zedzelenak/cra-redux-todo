@@ -12,16 +12,82 @@ code {
     monospace;
 }
 
+body, html, #root, #app {
+  height: 100%;
+}
+
 #app {
-  display: flex;
-  padding: 50px;
+  padding: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+h3 {
+  margin: 0;
+}
+
+#todo-list, #controls {
+  width: 100%;
+}
+
+#todo-list {
+  margin: 30px auto;
+  width: 80%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  box-shadow: 1px 1px 10px silver;
 }
 
 #todo-list ul {
   list-style-type: none;
 }
 
-#controls, #todo-list {
-  border: 1px solid black;
-  padding: 20px;
+#todo-list ul li {
+  padding: 10px;
+  border-top: 1px solid #808e9b;
+  border-bottom: 1px solid #d2dae2;
+}
+
+#todo-list li:first-child {
+  border-top: 0;
+  padding: 0;
+}
+#todo-list li:last-child {
+  border-bottom: 0;
+  padding: 0;
+}
+#todo-list li button {
+  margin-left: 20px;
+}
+#remove-all {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 0;
+}
+
+#controls {
+  background-color: #4bcffa;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  border-bottom: 8px solid #0fbcf9;
+}
+
+#controls input, #controls button {
+  padding: 10px 0;
+}
+
+#controls input {
+  flex-grow: 3;
+  margin-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#controls button {
+  flex-grow: 1;
+  margin-right: 20px;
 }

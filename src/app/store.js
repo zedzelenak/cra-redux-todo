@@ -1,8 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import {createStore} from 'redux';
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+const initialState = [];
+const reducer = (state = initialState, action) => {
+  switch(action.type) {
+    case 'add':
+      return [...state, action.payload];
+    case 'remove':
+      return state.filter((todo) => {
+        return todo !== action.payload;
+      });
+    case 'removeAll':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const store = createStore(reducer);

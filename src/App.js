@@ -1,56 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
+import {add, remove, removeAll} from './actions.js';
 
-function App() {
+function App(props) {
+  const store = props.store;
+  const state = store.getState();
+
+  const addTodo = () => {
+    store.dispatch(add());
+  };
+  const removeTodo = (e) => {
+    const parentListItem = e.target.parentElement;
+    store.dispatch(remove(parentListItem.dataset.todo));
+  };
+  const removeAllTodos = () => {
+    store.dispatch(removeAll());
+  };
+
+
+  const removeButton = <button className='remove' onClick={removeTodo}>X</button>;
+  const todoListItems = state?.map((todo, i) => {
+    return (
+      <li key={i} data-todo={todo}>{todo} {removeButton}</li>
+    );
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div id="app">
+      <div id="controls">
+        <h3>Controls for ToDo List</h3>
+        <div>
+          <input type='text' id='add' />
+          <button onClick={addTodo}>Add todo</button>
+        </div>
+      </div>
+      <div id="todo-list">
+        <h3>ToDo List</h3>
+        <ul>
+          {todoListItems}
+        </ul>
+        <div>
+          <button onClick={removeAllTodos}>Remove All Todos</button>
+        </div>
+      </div>
     </div>
   );
 }
